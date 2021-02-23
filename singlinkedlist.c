@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 
 struct Node
@@ -30,6 +31,55 @@ void createList(int data)
 }
 
 
+ void printList()
+ {
+   struct Node *t=Start;
+   if(t==NULL)
+   {
+     printf("List is empty\n");
+   }
+   else{
+     while(t!=NULL)
+     {
+       printf("%d,",t->data);
+       t=t->next;
+     }
+   }
+ }
+
+void  InsertinBegining(int data)
+{
+  if (Start==NULL)
+  {
+    createList(data);
+  }
+  else
+  {
+    struct Node *temp=(struct Node*)malloc(sizeof(struct Node));
+    temp->data=data;
+    temp->next=Start;
+    Start=temp;
+  }
+}
+
+int deleteFrombegining()
+{
+  if(Start==NULL)
+  {
+    printf("List is empty\n");
+    return-1;
+  }
+  else
+  {
+    struct Node *t=Start;
+    int data=t->data;
+    Start=Start->next;
+    free(t);
+    t=NULL;
+    return data;
+  }
+
+}
 
 
 void menu()
@@ -38,6 +88,7 @@ void menu()
   printf("1. create list(insert at end)\n");
   printf("2. Delete from beginning\n");
   printf("3. Print List\n");
+  printf("4. Insert in beginning\n");
   printf("0. Exit\n");
   printf("Enter your choice:");
 }
@@ -53,25 +104,18 @@ void performOperation(int ch)
        createList(data);
       break;
     case 2:
-      check=isEmpty();
-      if(check!=1)
-      {
         data=deleteFrombegining();
+        if(data!=-1)
         printf("%d is removed from the list\n",data);
-      }
-      else{
-        printf("list is empty\n");
-      }
-      break;
+    break;
     case 3:
-      check=isEmpty();
-      if(check!=1)
-      {
-        printList();
-      }
-      else{
-        printf("List is empty\n");
-      }
+      printList();
+     break;
+
+    case 4:
+      printf("enter number to insert: ");
+      scanf("%d",&data);
+       InsertinBegining(data);
       break;
     case 0:
       printf("Exiting....");
